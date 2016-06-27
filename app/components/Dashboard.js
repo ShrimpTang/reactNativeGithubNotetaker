@@ -11,6 +11,7 @@ import {
 import Profile from './Profile'
 import Api from '../utils/Api'
 import Repositories from './Repositories'
+import Notes from './Notes'
 
 class Dashboard extends Component {
     constructor(props) {
@@ -46,7 +47,14 @@ class Dashboard extends Component {
     }
 
     goToNotes(){
-        console.log('goToNotes')
+        Api.getNotes(this.props.userInfo.login)
+            .then(notes=>{
+                this.props.navigator.push({
+                    title:'Notes',
+                    component:Notes,
+                    passProps:{userInfo:this.props.userInfo,notes:notes}
+                })
+            })
     }
 
     render() {
